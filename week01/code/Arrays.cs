@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 public static class Arrays
 {
     /// <summary>
@@ -13,7 +15,21 @@ public static class Arrays
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return []; // replace this return statement with your own
+        // Create list to hold multiples
+        List<double> multiples = new List<double>();
+
+        // Loop length times
+        for (int i = 1; i <= length; i++)
+        {
+            // multiple number * loop index
+            double multiple = number * i;
+
+            // add multiple to multiples
+            multiples.Add(multiple);
+        }
+
+        // return list as array
+        return multiples.ToArray(); // replace this return statement with your own
     }
 
     /// <summary>
@@ -29,5 +45,21 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+
+        // loop amount times
+        for (int i = 0; i < amount; i++)
+        {
+            // get last element from list
+            int lastValue = data[data.Count - 1];
+
+            // get last index
+            int lastIndex = data.Count - 1;
+
+            // remove last element from list
+            data.RemoveAt(lastIndex);
+
+            // insert lastValue at beginning of list
+            data.Insert(0, lastValue);
+        }
     }
 }
