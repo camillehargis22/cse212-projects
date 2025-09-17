@@ -27,7 +27,23 @@
     /// in the list.
     /// </summary>
     /// <param name="numbers">array of integers</param>
-    private static void DisplaySumPairs(int[] numbers) {
+    private static void DisplaySumPairs(int[] numbers)
+    {
         // TODO Problem 2 - This should print pairs of numbers in the given array
+        // create new set of values sceen
+        var seenValues = new HashSet<int>();
+
+        // loop through given array
+        foreach (int n in numbers)
+        {
+            // if the set contains a number that sums to 10 with the n number I am currently on, then print the pair to the console
+            if (seenValues.Contains(10 - n))
+            {
+                Console.WriteLine($"{n} {10 - n}");
+            }
+
+            // Add n to set (all numbers will be added even if there is not a pair to the sum of 10, but the purpose is so we do not have duplicate pairs)
+            seenValues.Add(n);
+        }
     }
 }
