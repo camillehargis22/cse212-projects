@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text.Json;
 
 public static class SetsAndMaps
@@ -22,7 +23,30 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        // create list of pairs
+        var pairs = new List<string>();
+
+        // create a set to add unique words
+        var wordsSet = new HashSet<string>();
+
+        // loop through words (similar to DisplaySums) to see if we already have the transposed word in our set
+        foreach (string w in words)
+        {
+            // transpose w to see if already in set
+            var transposedWord = $"{w[1]}{w[0]}";
+
+            // if we do, then add the pairs to the pairs list
+            if (wordsSet.Contains(transposedWord))
+            {
+                pairs.Add($"{w} & {transposedWord}");
+            }
+
+            // add word to set
+            wordsSet.Add(w);
+        }
+        
+        // convert pairs list to array and return
+        return pairs.ToArray();
     }
 
     /// <summary>
@@ -43,6 +67,20 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            // get degree
+            var degree = fields[3];
+
+            // check if degree is already in degrees
+            // if it is, add to total
+            if (degrees.ContainsKey(degree))
+            {
+                degrees[degree] += 1;
+            }
+            // otherwise, add to degrees with total starting at 1
+            else
+            {
+                degrees.Add(degree, 1);
+            }
         }
 
         return degrees;
@@ -67,7 +105,53 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        // take out spaces from words and make all lowercase for comparison
+        word1 = word1.Replace(" ", "").ToLower();
+        word2 = word2.Replace(" ", "").ToLower();
+
+        // compare length of words, if they are not the same, they cannot be an anagram
+        if (word1.Length != word2.Length)
+        {
+            return false;
+        }
+
+        // turn each word into a char array and sort
+        char[] word1Array = word1.ToCharArray();
+        Array.Sort(word1Array);
+
+        char[] word2Array = word2.ToCharArray();
+        Array.Sort(word2Array);
+
+        // create and add word1Array into dictionary1 and word2Array into dictionary2
+        Dictionary<int, char> dictionary1 = new Dictionary<int, char>();
+        Dictionary<int, char> dictionary2 = new Dictionary<int, char>();
+        for (int c = 0; c < word1Array.Length; c++)
+        {
+            dictionary1.Add(c, word1Array[c]);
+            dictionary2.Add(c, word2Array[c]);
+        }
+
+        foreach (KeyValuePair<int, char> entry in dictionary1)
+        {
+            if (entry.Value != dictionary2[entry.Key])
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public class CharUsed
+    {
+        public char _character;
+        public bool _charUsed;
+
+        public CharUsed(char character, bool charUsed)
+        {
+            _character = character;
+            _charUsed = charUsed;
+        }
     }
 
     /// <summary>
