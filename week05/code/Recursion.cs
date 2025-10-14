@@ -45,12 +45,7 @@ public static class Recursion
     public static void PermutationsChoose(List<string> results, string letters, int size, string word = "")
     {
         // TODO Start Problem 2
-        Debug.WriteLine("Letters: " + letters + " Size: " + size + " Word: " + word);
-        if (results == null)
-        {
-            results = new List<string>();
-        }
-        return;
+        // ?????    
     }
 
     /// <summary>
